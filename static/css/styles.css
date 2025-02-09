@@ -1,0 +1,42 @@
+/* styles.css */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+#chat-box {
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    max-width: 80%;
+    word-wrap: break-word;
+    padding: 10px 14px;
+    border-radius: 12px;
+    margin: 4px;
+    display: inline-block;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #4A5568;
+    color: white;
+    text-align: right;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #CBD5E0;
+    color: black;
+}
+
+.markdown {
+    white-space: pre-line;
+    font-family: "Courier New", monospace;
+    background-color: #f4f4f5;
+    padding: 10px;
+    border-radius: 8px;
+    overflow-wrap: break-word;
+}
