@@ -1,4 +1,3 @@
-/* script.js */
 $(document).ready(function() {
     $("#chat-form").on("submit", function(e) {
         e.preventDefault();
@@ -11,7 +10,11 @@ $(document).ready(function() {
             return;
         }
 
-        $("#chat-box").append(`<div class='message user-message'><strong>Tú:</strong> ${userQuestion}</div>`);
+        $("#chat-box").append(`
+            <div class='message user-message'>
+                <strong>Tú:</strong> ${userQuestion}
+            </div>
+        `);
         $("#chat-input").val("");
 
         $.ajax({
@@ -22,15 +25,19 @@ $(document).ready(function() {
             success: function(response) {
                 loadingCircle.addClass("hidden");
                 if (response.answer) {
-                    $("#chat-box").append(`<div class='message bot-message'><div class='markdown'><strong>SERYI:</strong><br>${response.answer}</div></div>`);
+                    $("#chat-box").append(`
+                        <div class='message bot-message'>
+                            <div class='markdown'><strong>SERYI:</strong><br>${response.answer}</div>
+                        </div>
+                    `);
                 } else {
-                    $("#chat-box").append(`<div class='message bot-message text-red-500'>Error en la respuesta</div>`);
+                    $("#chat-box").append("<div class='message bot-message text-red-500'>Error en la respuesta</div>");
                 }
                 $("#chat-box").scrollTop($("#chat-box")[0].scrollHeight);
             },
             error: function() {
                 loadingCircle.addClass("hidden");
-                $("#chat-box").append(`<div class='message bot-message text-red-500'>Error en AJAX</div>`);
+                $("#chat-box").append("<div class='message bot-message text-red-500'>Error en AJAX</div>");
             }
         });
     });
@@ -46,12 +53,16 @@ $(document).ready(function() {
     $("#audio-upload").on("change", function() {
         const file = this.files[0];
         if (!file) return;
-    
+
         const formData = new FormData();
         formData.append("audio", file);
-    
-        $("#chat-box").append(`<div class='message user-message'><strong>Tú:</strong> Enviando audio: ${file.name}...</div>`);
-    
+
+        $("#chat-box").append(`
+            <div class='message user-message'>
+                <strong>Tú:</strong> Enviando audio: ${file.name}...
+            </div>
+        `);
+
         $.ajax({
             type: "POST",
             url: "/upload-audio",
@@ -60,26 +71,27 @@ $(document).ready(function() {
             contentType: false,
             success: function(response) {
                 if (response.error) {
-                    $("#chat-box").append(`<div class='message bot-message text-red-500'><strong>Error:</strong> ${response.error}</div>`);
+                    $("#chat-box").append(`
+                        <div class='message bot-message text-red-500'>
+                            <strong>Error:</strong> ${response.error}
+                        </div>
+                    `);
                     return;
                 }
-    
-                let markdownResponse = `
-                    <strong>Seryi: </strong>  
-                    ${response.summary}  
-                `;
-    
-                $("#chat-box").append(`<div class='message bot-message'><div class='markdown'>${markdownResponse}</div></div>`);
+
+                let markdownResponse = `<strong>Seryi:</strong> ${response.summary}`;
+                $("#chat-box").append(`
+                    <div class='message bot-message'>
+                        <div class='markdown'>${markdownResponse}</div>
+                    </div>
+                `);
             },
             error: function() {
-                $("#chat-box").append(`<div class='message bot-message text-red-500'><strong>Error:</strong> No se pudo subir el audio.</div>`);
+                $("#chat-box").append("<div class='message bot-message text-red-500'><strong>Error:</strong> No se pudo subir el audio.</div>");
             },
             complete: function() {
-                // 💡 Reseteamos el input de archivos para permitir nuevas subidas
                 $("#audio-upload").val("");
             }
         });
     });
-    
-    
 });

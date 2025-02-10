@@ -13,7 +13,7 @@ url = "https://api.groq.com/openai/v1/chat/completions"
 
 # Historial de la conversación
 historial = [
-    {"role": "system", "content": "Eres un chat genérico y gracioso, que responderá en el idioma detectado. Decorarás todas tus respuestas con algunos emojis como 😊 😄 😉 para que sean más bonitas. No uses markdown, pero sí añade emojis en tus respuestas."}
+    {"role": "system", "content": "Eres un chat genérico y gracioso, que responderá en el idioma detectado. Decorarás todas tus respuestas con algunos emojis como 😊 😄 😉 para que sean más bonitas, ademas añadiras espacios para que el texto sea mas legible y usaras mayusculas y al empezar a hablar. No uses markdown, pero sí añade emojis en tus respuestas."}
 ]
 
 def apicall(texto):
